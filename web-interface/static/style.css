@@ -1,0 +1,539 @@
+:root {
+    --purpleA: #9979C2;
+    --cyanA: #7ADFF1;
+    --pinkA: #FF84B1;
+    --pinkB: #FBB7D0;
+    --pinkC: #FEE5EB;
+}
+
+*,
+*::after,
+*::before {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0%;
+    font-family: "Roboto";
+}
+
+.home-logo img {
+    width: 100px;
+}
+
+/* .homepage-bg p {
+    position: absolute;
+    right: 450px;
+    top: 330px;
+    color: white;
+    font-weight: 900;
+    font-size: 40px;
+} */
+
+.homepage-bg img {
+    position: absolute;
+    /* border-radius: 10px; */
+    /* top: 90px;
+    right: 20px;
+    width: 55%;
+    height: 76%;
+    opacity: 0.9; */
+    opacity: 1; 
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+/* logo */
+.nav-logo {
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin-bottom: 20px;
+    color: var(--pinkA);
+    font-weight: 900;
+    border-bottom: 1px solid var(--pinkB);
+}
+
+.nav-logo p {
+    margin-bottom: 20px;
+}
+
+.nav-logo img {
+    width: 70px;
+}
+
+/* NAVBAR */
+.sidenav {
+    width: 230px;
+    top: 0;
+    height: 100vh;
+    position: fixed;
+    padding: 8px;
+    z-index: 1;
+}
+
+.navbar {
+    z-index: 1;
+    width: 84%;
+    height: 70px;
+    position: fixed; 
+    border-bottom: 1px solid var(--pinkC);
+    left: 230px;    
+    padding: 23px;
+    font-weight: 900;
+    color: var(--pinkA);
+    font-size: 20px;
+}
+
+.navbar.add {
+    display: flex;
+    gap: 30px;
+}
+
+/* icon */
+.icon-bg {
+    width: 100%;  
+    height: 40px; 
+    padding: 4px;
+    border-radius: 5px; 
+}
+
+.icon-bg:hover {
+    transition: 0.3s;
+    background-color: var(--pinkA);
+    border-radius: 5px; 
+}
+
+.icon-bg:hover img, .icon-bg:hover p {
+    filter: brightness(0) invert(1);
+}
+
+/* selected icon */
+.selected-icon-bg {
+    width: 100%;    
+    height: 40px; 
+    background-color: var(--pinkA);
+    border-radius: 5px; 
+    padding: 4px;
+}
+
+.selected-icon-bg img {
+    filter: brightness(0) invert(1);
+}
+
+.selected-icon-bg p {
+    color: white;
+}
+
+ul {
+    list-style: none;
+}
+
+ul li {
+    margin-bottom: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    cursor: pointer;
+    transition: 1ms;
+}
+
+a {
+    text-decoration: none;
+    color: white;
+}
+
+ul li img {
+    margin-right: 10px;
+    margin-left: 15px;
+    width: 22px;
+    z-index: 1;
+}
+
+ul li p {
+    white-space: nowrap;
+    z-index: 1;
+    color: var(--pinkA);
+    font-size: 14px;
+}
+
+/* footer styles */
+.footer-rect {
+    font-size: 12px;
+    width: 100%; 
+    height: 45px;
+    background-color: var(--pinkA);
+    text-align: left;
+    padding: 15px;
+    position: fixed; 
+    bottom: 0;
+    left: 0; 
+    right: 0; 
+    z-index: 999; 
+    color: white;
+}
+
+.back-icon img {
+    width: 25px;
+}
+
+/* input box styles */
+.inputBox {
+    position: relative;
+    width: 450px;
+}
+
+.disabled-inputbox {
+    position: relative;
+    width: 450px;
+}
+
+.inputBox input {
+    width: 100%;
+    padding: 10px;
+    border: 2px solid gainsboro;
+    border-radius: 5px;
+    outline-color: var(--pinkA);
+    color: black;
+    font-size: 1em;
+    transition: 0.5s;
+}
+
+.inputBox span {
+    position: absolute;
+    left: 0;
+    padding: 10px;
+    pointer-events: none;
+    color: #bfbdbeab;
+    text-transform: uppercase;
+    transition: 0.5s;
+}
+
+.inputBox input:focus ~ span,
+.inputBox input:valid ~ span {
+    color: var(--pinkA);
+    transform: translateX(10px) translateY(-7px);
+    font-size: 0.65em;
+    padding: 0 10px;
+    background: #ffffff; 
+}
+
+.inputBox input:focus,
+.inputBox input:valid {
+    border: 1px solid var(--pinkA);
+} 
+
+/* add course, student */
+.inputBox.code {
+    position: absolute;
+    top: 200px;
+    left: 560px;
+}
+
+.inputBox.name {
+    position: absolute;
+    top: 200px;
+    left: 560px;
+}
+
+.inputBox.id {
+    position: absolute;
+    top: 160px;
+    left: 560px;
+}
+
+.inputBox.fname {
+    position: absolute;
+    top: 160px;
+    left: 560px;
+}
+
+/* button to submit */
+.container {
+    position: absolute;
+    transform: translate(-50%, -50%);
+}
+
+.btn {
+    border: none;
+    padding: 8px 26px;
+    font-size: 15px;
+    border-radius: 5px;
+    background-image: linear-gradient(to left,var(--pinkB),var(--pinkB), var(--pinkA));
+    color: white;
+    position: relative;
+    transition:  0.7s;
+    background-size: 200%;
+    text-decoration: none;
+}
+
+.btn.btn1 {
+    position: relative;
+    top: 390px;
+    left: 785px;
+}
+
+.btn.btn2 {
+    position: relative;
+    top: 320px;
+    left: 785px;
+}
+
+.btn.btn3 {
+    position: relative;
+    top: 330px;
+    left: 785px;
+}
+
+.btn:hover {
+    background-position: right;
+}
+
+.btn:active {
+    transform: scale(0.80);
+}
+
+/* table */
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+thead {
+    position: sticky;
+    top: 0;
+}
+
+.table-container {
+    position: relative; 
+    top: 100px; 
+    margin-right: 20px; 
+    margin-left: 250px;      
+    overflow-y: scroll; 
+    overflow-x: hidden;
+    max-height: 395px;
+    font-size: 15px;
+}
+
+.table-container.student {
+    top: 100px; 
+    max-height: 420px;
+}
+
+.table-container::-webkit-scrollbar, .dropdown-options::-webkit-scrollbar {
+    width: 10px; 
+}
+
+.table-container::-webkit-scrollbar-thumb, .dropdown-options::-webkit-scrollbar-thumb {
+    background-color: var(--pinkA); 
+    border-radius: 5px;
+}
+
+.table-container::-webkit-scrollbar-track, .dropdown-options::-webkit-scrollbar-track {
+    background-color: var(--pinkC);
+    margin-top: 50px;
+    border-radius: 5px;
+}
+
+.dropdown-options::-webkit-scrollbar-track {
+    background-color: var(--pinkC);
+    margin-top: 5px;
+}
+
+th, td {
+    border: 2px solid white;
+    text-align: center;
+    padding: 10px;
+    border-bottom: 2px solid var(--pinkC);
+}
+
+th {
+    background-color: var(--pinkC);
+    color: var(--pinkA);
+    font-weight: 900;
+    font-size: 16px;
+}
+
+.custom-edit-button, .custom-delete-button  {
+    border: none;
+    background-color: white;
+    cursor: pointer;
+}
+
+.custom-edit-button img, .custom-delete-button img {
+    width: 25px;
+}
+
+.custom-add-button {
+    z-index: 1;
+    cursor: pointer;
+    position: absolute;
+    right: 25px;
+    top: 15px;
+}
+
+.custom-add-button img {
+    width: 40px;
+    border-radius: 100%;
+}
+
+.custom-return-button {
+    position: absolute;
+    top: 85px;
+    left: 250px;
+    border: none;
+    padding: 8px 30px;
+    font-size: 15px;
+    border-radius: 5px;
+    background-color: var(--pinkC);
+    font-weight: 900;
+    color: var(--pinkA);
+    background-size: 200%;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* dropdown */
+.custom-dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.custom-select {
+    position: absolute;
+}
+
+.custom-select.course {
+    top: 220px;
+    left: 560px;
+}
+
+.dropdown-select.course {
+    width: 450px;
+}
+
+.dropdown-select {
+    width: 215px;
+    padding: 10px;
+    background-color: var(--pinkA);
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+}
+
+.dropdown-options {
+    display: none;
+    position: absolute;
+    background-color: white;
+    color: var(--pinkA);
+    width: 100%;
+    z-index: 1000;
+    max-height: 200px;
+    overflow-y: scroll;
+}
+
+.dropdown-option:hover {
+    background-color: #fbf0f5 
+}
+
+.dropdown-option {
+    padding: 10px;
+    cursor: pointer;
+}
+
+.dropdown-options.show {
+    display: block;
+}
+
+/* modal */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 9999;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+  
+.modal-dialog {
+    position: relative;
+    width: auto;
+    margin: 12% auto;
+}
+  
+.modal-content {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    background-color: #fff;
+    border-radius: 5px;
+    margin: 0 auto;
+    padding: 10px;
+}
+  
+.modal-header {
+    padding: 10px;
+    border-bottom: 1px solid var(--pinkA);
+    color: var(--pinkA);
+    font-size: 12px;
+}
+  
+.modal-body {
+    padding: 20px;
+    font-size: 16px;
+}
+  
+.modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 20px;
+    gap: 20px;
+}
+  
+.modal-title {
+    margin: 0;
+}
+
+.modal.show {
+    display: block;
+}
+  
+/* modal confirmation button */
+.btn-done {
+    color: white;
+    background-color: var(--pinkA);
+    border: none;
+    border-radius: 5px;
+    width: 100px;
+    height: 40px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.btn-done:active {
+    transform: translateY(1px);
+}
+
+.card-container {
+    position: absolute;
+    top: 180px;
+    left: 560px;
+    width: 450px;
+    height: 50px;
+    border: 1px solid var(--pinkA);
+    color: var(--pinkA);
+    border-radius: 5px;
+    text-align: center;
+    padding: 15px;
+}
+
+.card-container.student {
+    width: 450px;
+    height: 100px;
+    padding: 25px;
+}

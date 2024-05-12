@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% block title %}SSIS | STUDENT{% endblock title %}
+{% block content %}
+
+<!-- NAVIGATION -->
+<div class="sidenav">
+    <ul>
+        <div class="nav-logo">
+            <img src="{{ url_for('static', filename='images/Student-Info Logo.png') }}"> 
+            <p>STUDENT INFORMATION SYSTEM</p>
+        </div>
+        <a href="{{ url_for('home') }}">
+            <li class="icon-bg">
+                <img src="{{ url_for('static', filename='images/Home.png') }}"> 
+                <p>Home</p>
+            </li>
+        </a>  
+        <a href="{{ url_for('courses') }}">
+            <li class="icon-bg">
+                <img src="{{ url_for('static', filename='images/Course.png') }}"> 
+                <p>Course</p>
+            </li>
+        </a>
+        <li class="selected-icon-bg">
+            <img src="{{ url_for('static', filename='images/Student.png') }}"> 
+            <p>Student</p>
+        </li>
+    </ul>
+</div>
+
+<div class="navbar add">
+    <div class="back-icon">
+        <a href="{{ url_for('students') }}">
+            <img src="{{ url_for('static', filename='images/back-icon.png') }}">
+        </a>
+    </div>
+    <p>VIEW STUDENT</p>
+</div>
+
+<div class="card-container student"></div>
+
+<script>
+    const studentId = '{{ student_id }}';
+    const getStudent = async () => {
+        try {
+            const response = await fetch(`http://localhost:5000/student/${studentId}`);
+            const json = await response.json();
+            const data = json.message;
+
+            const studentCard = document.querySelector('.card-container.student');
+        
+            studentCard.innerHTML = `
+                <p>${data.student_name}</p>
+                <p>${data.course_name}</p>
+            `;
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
+    getStudent();
+</script>
+
+{% endblock %}

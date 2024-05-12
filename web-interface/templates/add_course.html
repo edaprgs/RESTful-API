@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+{% block title %}SSIS | COURSE{% endblock title %}
+{% block content %}
+
+<!-- NAVIGATION -->
+<div class="sidenav">
+    <ul>
+        <div class="nav-logo">
+            <img src="{{ url_for('static', filename='images/Student-Info Logo.png') }}"> 
+            <p>STUDENT INFORMATION SYSTEM</p>
+        </div>
+        <a href="{{ url_for('home') }}">
+            <li class="icon-bg">
+                <img src="{{ url_for('static', filename='images/Home.png') }}"> 
+                <p>Home</p>
+            </li>
+        </a>  
+        <li class="selected-icon-bg">
+            <img src="{{ url_for('static', filename='images/Course.png') }}"> 
+            <p>Course</p>
+        </li>
+        <a href="{{ url_for('students') }}">
+            <li class="icon-bg">
+                <img src="{{ url_for('static', filename='images/Student.png') }}"> 
+                <p>Student</p>
+            </li>
+        </a>
+    </ul>
+</div>
+
+<div class="navbar add">
+    <div class="back-icon">
+        <a href="{{ url_for('courses') }}">
+            <img src="{{ url_for('static', filename='images/back-icon.png') }}">
+        </a>
+    </div>
+    <p>ADD COURSE</p>
+</div>
+
+<!-- ADD COURSE FORM -->
+<form id = "course-form">
+    <div class="inputBox name">
+        <input type="text" required name="course_name" id="course_name">
+        <span>NAME</span>
+    </div>
+
+    <div class="container">
+        <button class="btn btn3" id="submit-button" type="submit">SUBMIT</button>
+    </div>
+</form>
+
+<script>
+    const addCourse = async (event) => {
+        event.preventDefault();
+
+        const form = event.target;
+        const formData = new FormData(form);
+        const courseName = formData.get('course_name');
+
+        try {
+            const response = await fetch('http://localhost:5000/course', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ course: courseName }),
+            });
+
+            const json = await response.json();
+
+            if (response.ok) {
+                form.reset();
+                window.location.href = 'http://localhost:5001/courses';
+            }
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
+    const form = document.querySelector('#course-form');
+    form.addEventListener('submit', addCourse);
+</script>
+
+{% endblock %}  

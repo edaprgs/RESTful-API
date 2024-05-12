@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+{% block title %}SSIS | COURSE{% endblock title %}
+{% block content %}
+
+<!-- NAVIGATION -->
+<div class="sidenav">
+    <ul>
+        <div class="nav-logo">
+            <img src="{{ url_for('static', filename='images/Student-Info Logo.png') }}"> 
+            <p>STUDENT INFORMATION SYSTEM</p>
+        </div>
+        <a href="{{ url_for('home') }}">
+            <li class="icon-bg">
+                <img src="{{ url_for('static', filename='images/Home.png') }}"> 
+                <p>Home</p>
+            </li>
+        </a>  
+        <li class="selected-icon-bg">
+            <img src="{{ url_for('static', filename='images/Course.png') }}"> 
+            <p>Course</p>
+        </li>
+        <a href="{{ url_for('students') }}">
+            <li class="icon-bg">
+                <img src="{{ url_for('static', filename='images/Student.png') }}"> 
+                <p>Student</p>
+            </li>
+        </a>
+    </ul>
+</div>
+
+<div class="navbar add">
+    <div class="back-icon">
+        <a href="{{ url_for('courses') }}">
+            <img src="{{ url_for('static', filename='images/back-icon.png') }}">
+        </a>
+    </div>
+    <p>VIEW COURSE</p>
+</div>
+
+<div class="card-container"></div>
+
+<!-- <div class="container"> 
+    <a href="{{ url_for('add_student', id = course_id) }}">
+        <button class="btn btn3" type="submit">ADD STUDENT</button>
+    </a>
+</div> -->
+
+<script>
+    const courseId = '{{ course_id }}';
+    const getCourse = async () => {
+        try {
+            const response = await fetch(`http://localhost:5000/course/${courseId}`);
+            const json = await response.json();
+            const data = json.message;
+
+            const courseCard = document.querySelector('.card-container');
+        
+            courseCard.innerHTML = `
+                <p>${data.course_name}</p>
+            `;
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
+    getCourse();
+</script>
+
+{% endblock %}

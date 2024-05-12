@@ -1,0 +1,129 @@
+{% extends "base.html" %}
+{% block title %}SSIS | STUDENT{% endblock title %}
+{% block content %}
+
+<!-- NAVIGATION -->
+<div class="sidenav">
+    <ul>
+        <div class="nav-logo">
+            <img src="{{ url_for('static', filename='images/Student-Info Logo.png') }}"> 
+            <p>STUDENT INFORMATION SYSTEM</p>
+        </div>
+        <a href="{{ url_for('home') }}">
+            <li class="icon-bg">
+                <img src="{{ url_for('static', filename='images/Home.png') }}"> 
+                <p>Home</p>
+            </li>
+        </a>  
+        <a href="{{ url_for('courses') }}">
+            <li class="icon-bg">
+                <img src="{{ url_for('static', filename='images/Course.png') }}"> 
+                <p>Course</p>
+            </li>
+        </a>
+        <li class="selected-icon-bg">
+            <img src="{{ url_for('static', filename='images/Student.png') }}"> 
+            <p>Student</p>
+        </li>
+    </ul>
+</div>
+
+<div class="navbar">
+    <p>STUDENT</p>
+</div>
+
+<!-- ADD -->
+<a href="{{ url_for('add_student') }}" class="custom-add-button">
+    <img src="{{ url_for('static', filename='images/Add.png') }}"> 
+</a>
+
+<!-- STUDENT LIST -->
+<div class="table-container student">
+    <table id="studentTable">
+        <thead>
+            <tr>
+                <th>STUDENT ID</th>
+                <th>NAME</th>
+                <th>COURSE</th>
+                <th colspan="3">ACTION</th>
+            </tr>
+        </thead>
+        <tbody id="studentList">
+            
+        </tbody>
+    </table>
+</div>
+
+<script>
+    const getStudents = async () => {
+        try {
+            const response = await fetch('http://localhost:5000/students');
+            const json = await response.json();
+            const students = json.Message;
+            
+            const studentListContainer = document.getElementById('studentList');
+    
+            // Clear existing table rows
+            studentListContainer.innerHTML = '';
+    
+            students.forEach(student => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${student.student_id}</td>
+                    <td>${student.student_name}</td>
+                    <td>${student.course_name}</td>
+                    <td>
+                        <a href="/students/${student.student_id}"> 
+                            <button type="button" class="custom-edit-button">
+                                <img src="{{ url_for('static', filename='images/View.png') }}"> 
+                            </button>
+                        </a>
+                    </td>
+                    <td>
+                        <a href="/students/edit/${student.student_id}"> 
+                            <button type="button" class="custom-edit-button">
+                                <img src="{{ url_for('static', filename='images/Edit.png') }}"> 
+                            </button>
+                        </a>
+                    </td>
+                    <td>
+                        <form class="deleteStudentForm">
+                            <button class="custom-delete-button" type="submit" data-student-id="${student.student_id}">
+                                <img src="{{ url_for('static', filename='images/Delete.png') }}"> 
+                            </button>
+                        </form>
+                    </td>
+                `;
+                studentListContainer.appendChild(row);
+            });
+
+            document.querySelectorAll('.deleteStudentForm').forEach(form => {
+                form.addEventListener('submit', async (event) => {
+                    event.preventDefault();
+                    const studentId = event.currentTarget.querySelector('button').dataset.studentId;
+                    const confirmation = confirm('Are you sure you want to delete this student?');
+                    if (confirmation) {
+                        try {
+                            const response = await fetch(`http://localhost:5000/student/${studentId}`, {
+                                method: 'DELETE'
+                            });
+                            if (response.ok) {
+                                window.location.href = 'http://localhost:5001/students';
+                            } else {
+                                console.error('Failed to delete student');
+                            }
+                        } catch (error) {
+                            console.error(error);
+                        }
+                    }
+                });
+            });
+        } catch (error) {
+            console.error(error);
+        }
+    };
+    
+    getStudents();
+</script>
+
+{% endblock %}  

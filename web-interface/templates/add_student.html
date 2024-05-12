@@ -1,0 +1,136 @@
+{% extends "base.html" %}
+{% block title %}SSIS | STUDENT{% endblock title %}
+{% block content %}
+
+<!-- NAVIGATION -->
+<div class="sidenav">
+    <ul>
+        <div class="nav-logo">
+            <img src="{{ url_for('static', filename='images/Student-Info Logo.png') }}"> 
+            <p>STUDENT INFORMATION SYSTEM</p>
+        </div>
+        <a href="{{ url_for('home') }}">
+            <li class="icon-bg">
+                <img src="{{ url_for('static', filename='images/Home.png') }}"> 
+                <p>Home</p>
+            </li>
+        </a>  
+        <a href="{{ url_for('courses') }}">
+            <li class="icon-bg">
+                <img src="{{ url_for('static', filename='images/Course.png') }}"> 
+                <p>Course</p>
+            </li>
+        </a>
+        <li class="selected-icon-bg">
+            <img src="{{ url_for('static', filename='images/Student.png') }}"> 
+            <p>Student</p>
+        </li>
+    </ul>
+</div>
+
+<div class="navbar add">
+    <div class="back-icon">
+        <a href="{{ url_for('students') }}">
+            <img src="{{ url_for('static', filename='images/back-icon.png') }}">
+        </a>
+    </div>
+    <p>ADD STUDENT</p>
+</div>
+
+<!-- ADD STUDENT FORM -->
+<form id = "student-form">
+
+    <!-- NAME -->
+    <div class="inputBox fname">
+        <input type="text" required name="student_name" id="student_name">
+        <span>NAME</span>
+    </div>
+
+    <!-- COURSE -->
+    <div class="custom-select course">
+        <select name="course_id" id="course-options" required style="
+        width: 450px;
+        height: 40px;
+        border-radius: 5px;
+        background-color: #FF84B1;
+        border: 2px solid #FF84B1;
+        color: #FFFFFF;
+        font-size: 16px;
+        padding: 5px;
+        outline: none;
+        cursor: pointer;">
+            <option value="" selected disabled style="color: gainsboro; background-color: white;">COURSE</option>
+        </select>
+    </div>    
+
+    <div class="container">
+        <button class="btn btn2" type="submit">SUBMIT</button>
+    </div>
+</form>
+
+<script>
+    const populateCoursesDropdown = async () => {
+        try {
+            const response = await fetch('http://localhost:5000/courses');
+            const data = await response.json();
+            const courses = data.Message;
+            
+            const courseDropdown = document.getElementById('course-options');
+    
+            courseDropdown.innerHTML = '';
+    
+            const defaultOption = document.createElement('option');
+            defaultOption.value = '';
+            defaultOption.textContent = 'COURSE';
+            defaultOption.disabled = true;
+            defaultOption.selected = true;
+            courseDropdown.appendChild(defaultOption);
+    
+            courses.forEach(course => {
+                const option = document.createElement('option');
+                option.value = course.course_id;
+                option.textContent = course.course_name;
+                courseDropdown.appendChild(option);
+            });
+        } catch (error) {
+            console.error(error);
+        }
+    };
+    
+    populateCoursesDropdown();
+
+    const addStudent = async (event) => {
+        event.preventDefault();
+
+        const form = event.target;
+        const formData = new FormData(form);
+        const studentName = formData.get('student_name');
+
+        const courseDropdown = document.getElementById('course-options');
+        const studentCourse = courseDropdown.value;
+
+        try {
+            const response = await fetch('http://localhost:5000/student', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ student: studentName, course_id: studentCourse }),
+            });
+
+            const json = await response.json();
+
+            if (response.ok) {
+                form.reset();
+                window.location.href = 'http://localhost:5001/students';
+            }
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
+    const form = document.querySelector('#student-form');
+    form.addEventListener('submit', addStudent);
+</script>
+
+{% endblock %}  

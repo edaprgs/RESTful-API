@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block title %}SSIS | HOME{% endblock title %}
+{% block content %}
+
+<!-- NAVIGATION -->
+<div class="sidenav">
+    <ul>
+        <div class="nav-logo">
+            <img src="{{ url_for('static', filename='images/Student-Info Logo.png') }}"> 
+            <p>STUDENT INFORMATION SYSTEM</p>
+        </div>
+        <li class="selected-icon-bg">
+            <img src="{{ url_for('static', filename='images/Home.png') }}"> 
+            <p>Home</p>
+        </li>
+        <a href="{{ url_for('courses') }}">
+            <li class="icon-bg">
+                <img src="{{ url_for('static', filename='images/Course.png') }}"> 
+                <p>Course</p>
+            </li>
+        </a>
+        <a href="{{ url_for('students') }}">
+            <li class="icon-bg">
+                <img src="{{ url_for('static', filename='images/Student.png') }}"> 
+                <p>Student</p>
+            </li>
+        </a>
+    </ul>
+</div>
+
+<div class="navbar">
+    <p>HOME</p>
+</div>
+
+{% endblock %}  
